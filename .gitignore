@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+*.pkl
+.venv/
+venv/
+*.egg-info/
+.claude/

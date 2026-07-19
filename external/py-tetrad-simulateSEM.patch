@@ -1,0 +1,75 @@
+diff --git a/pytetrad/tools/simulate.py b/pytetrad/tools/simulate.py
+index 49ea8bd..18666be 100644
+--- a/pytetrad/tools/simulate.py
++++ b/pytetrad/tools/simulate.py
+@@ -18,8 +18,16 @@ except OSError:
+ from edu.cmu.tetrad.util import Params, Parameters
+ import edu.cmu.tetrad.algcomparison.simulation as sim
+ import edu.cmu.tetrad.algcomparison.graph as graph
+-
+-# Simuolates a continuous dataset with the given arguments and returns the dataset as a pandas datafram
++import edu.cmu.tetrad.data.ContinuousVariable as cv
++import edu.cmu.tetrad.graph.SemGraph as sg
++import edu.cmu.tetrad.sem.SemPm as sp
++import edu.cmu.tetrad.algcomparison.simulation.SemSimulation as ss
++import edu.cmu.tetrad.sem.Parameter as pmeter
++import edu.cmu.tetrad.util.Parameters as pmeters
++import edu.cmu.tetrad.sem.ParamType as pt
++import edu.cmu.tetrad.sem.SemIm as si
++
++# Simulates a continuous dataset with the given arguments and returns the dataset as a pandas datafram
+ def simulateContinuous(num_meas = 20, num_lat = 0, avg_deg = 4, samp_size = 200, coef_low = 0, coef_high = 1,
+                        var_low = 1, var_high = 3, rand_cols=False):
+     # Set the parameters for the simulation
+@@ -49,6 +57,51 @@ def simulateContinuous(num_meas = 20, num_lat = 0, avg_deg = 4, samp_size = 200,
+ 
+     return D, G
+ 
++def simulateSEM(edgelist, means, coefs, vars, covars = 0, num_meas = 3, samp_size = 100):
++    semgraph = sg()
++    nodelist = []
++    for i in range (0, num_meas):
++        node = cv("X" + str(i + 1))
++        nodelist.append(node)
++        semgraph.addNode(node)
++    for edge in edgelist:
++        semgraph.addDirectedEdge(nodelist[edge[0] - 1], nodelist[edge[1] - 1])
++    sempm = sp(semgraph)
++    semim = si(sempm)
++    
++    parameters = []
++    for i in range(0, len(coefs)):
++        node_index1 = edgelist[i][0] - 1
++        node_index2 = edgelist[i][1] - 1
++        semim.setEdgeCoef(nodelist[node_index1], nodelist[node_index2], 
++                          coefs[i])
++        #semim.setEdgeCoef(node2, node1, coefs[i])
++
++    for i in range(0, len(means)):
++        semim.setMean(nodelist[i], means[i])
++        semim.setErrVar(nodelist[i], vars[i])
++
++    # debug_coef_list = []
++    # edges = semgraph.getEdges()
++    # for edge in edges:
++    #     debug_coef_list.append(semim.getEdgeCoef(edge))
++
++    # debug_mean_list = []
++    # nodes = semgraph.getNodes()
++    # for node in nodes:
++    #     debug_mean_list.append(semim.getMean(node))
++    # print(debug_mean_list)
++    params = Parameters()
++    params.set(Params.SAMPLE_SIZE, samp_size)
++    params.set(Params.NUM_MEASURES, num_meas)
++
++    semsim = ss(semim)
++    semsim.createData(params, True)
++    D = semsim.getDataModel(0)
++    G = semsim.getTrueGraph(0)
++    return D, G
++
++
+ # Simuolates a discrete dataset with the given arguments and returns the dataset as a pandas dataframe
+ def simulateDiscrete(num_meas = 20, num_lat = 0, avg_deg = 4, min_cat=3, max_cat=3, samp_size=1000):
+     # Set the parameters for the simulation

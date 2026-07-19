@@ -1,0 +1,24 @@
+{
+  "true_dag1": [
+    [
+      1,
+      2
+    ]
+  ],
+  "true_dag2": [
+    [
+      0,
+      1
+    ],
+    [
+      0,
+      2
+    ]
+  ],
+  "true_dag1_index": 2,
+  "true_dag2_index": 4,
+  "distance": 3,
+  "mechanism": "quadratic",
+  "seed": 1,
+  "n_each": 600
+}

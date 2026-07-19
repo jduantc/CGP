@@ -1,0 +1,12 @@
+diff --git a/fges.py b/fges.py
+index a883942..be4b625 100644
+--- a/fges.py
++++ b/fges.py
+@@ -82,6 +82,7 @@ class FGES:
+                 "sparsity": self.sparsity,
+                 "filename": self.filename,
+                 "nodes": len(self.variables),
++                "score": self.total_score,
+                 "knowledge": self.knowledge}
+ 
+     @classmethod
