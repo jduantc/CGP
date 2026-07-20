@@ -183,7 +183,7 @@ polynomial block $[X_p, X_p^2, \dots, X_p^{\deg}]$, and ordinary least-squares p
 ### Closing Interpretation
 
 The above was a lot of algebra, but it lends an intuitive way to interpret AR.
-You might notice that $\mathrm{SSR}_j$ is equivalent to the Schur complement of $S_{PP}$ in
+You might notice that $\operatorname{SSR}_j$ is equivalent to the Schur complement of $S_{PP}$ in
 
 $$\begin{bmatrix} S_{PP} & S_{Pj} \\ S_{jP} & S_{jj} \end{bmatrix}$$
 
