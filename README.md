@@ -180,10 +180,10 @@ computation, but on an augmented matrix (each parent column $X_p$ is substituted
 block of higher order terms
 polynomial block $[X_p, X_p^2, \dots, X_p^{\deg}]$, and ordinary least-squares proceeds as normal).
 
-### Closing Interpretation
+<!-- ### Closing Interpretation
 
 The above was a lot of algebra, but it lends an intuitive way to interpret AR.
-You might notice that $ SSR_j $ is equivalent to the Schur complement of $ S_{PP} $ in
+You might notice that $\operatorname{SSR}_j$ is equivalent to the Schur complement of $S_{PP}$ in
 
 $$\begin{bmatrix} S_{PP} & S_{Pj} \\ S_{jP} & S_{jj} \end{bmatrix}$$
 
@@ -192,4 +192,4 @@ Dividing by $n$ and using $S = n\widehat{\mathrm{Cov}}$ gives
 $$\frac{\mathrm{SSR}_j}{n} = \widehat{\mathrm{Cov}}_{jj} - \widehat{\mathrm{Cov}}_{jP}\widehat{\mathrm{Cov}}_{PP}^{-1}\widehat{\mathrm{Cov}}_{Pj} = \widehat{\mathrm{Var}}\big(X_j \mid X_{\mathrm{pa}(j)}\big),$$
 
 Thus each AR term is approximately the
-node $j$'s variance conditional on its parents.
+node $j$'s variance conditional on its parents. -->
