@@ -115,10 +115,10 @@ $n$, the column-sum vector $s = \sum_i x_i$, and
 $Q = X_{\text{raw}}^\top X_{\text{raw}}$ (the product of the uncentered, raw data matrices).
 The centered scatter of the full dataset can then be recovered as:
 
-$$S = Q - \frac{s\,s^\top}{n},$$
+$$S = Q - \frac{ss^\top}{n},$$
 
 (this follows immediately from the identity
-$\sum_i (x_i-\bar x)(x_i-\bar x)^\top = \sum_i x_ix_i^\top - n\,\bar x\bar x^\top$
+$\sum_i (x_i-\bar x)(x_i-\bar x)^\top = \sum_i x_ix_i^\top - n\bar x\bar x^\top$
 with $\bar x = s/n$). 
 
 Notably, $(n, s, Q)$ are **additive** across
@@ -156,11 +156,11 @@ Again by the normal equations (and plugging in our simplification
 $\hat\beta^\top S_{PP}\hat\beta = \hat\beta^\top S_{Pj}$), we have:
 
 $$\mathrm{SSR}_j = (X_j - X_P \hat\beta)^\top(X_j - X_P \hat\beta) = 
-S_{jj} - 2\,\hat\beta^\top S_{Pj} + \hat\beta^\top S_{PP}\hat\beta = S_{jj} - \hat\beta^\top S_{Pj},$$
+S_{jj} - 2 \hat\beta^\top S_{Pj} + \hat\beta^\top S_{PP}\hat\beta = S_{jj} - \hat\beta^\top S_{Pj},$$
 
 Now substituting $\hat\beta = S_{PP}^{-1}S_{Pj}$:
 
-$$\mathrm{SSR}_j = S_{jj} - S_{jP}\,S_{PP}^{-1}\,S_{Pj}.$$
+$$\mathrm{SSR}_j = S_{jj} - S_{jP}S_{PP}^{-1}S_{Pj}.$$
 
 This is our final, closed-form equation that we use. The calculation is simply:
 ```
@@ -187,9 +187,9 @@ You might notice that $\mathrm{SSR}_j$ is equivalent to the Schur complement of 
 
 $$\begin{bmatrix} S_{PP} & S_{Pj} \\ S_{jP} & S_{jj} \end{bmatrix}$$
 
-Dividing by $n$ and using $S = n\,\widehat{\mathrm{Cov}}$ gives
+Dividing by $n$ and using $S = n\widehat{\mathrm{Cov}}$ gives
 
-$$\frac{\mathrm{SSR}_j}{n} = \widehat{\mathrm{Cov}}_{jj} - \widehat{\mathrm{Cov}}_{jP}\,\widehat{\mathrm{Cov}}_{PP}^{-1}\,\widehat{\mathrm{Cov}}_{Pj} = \widehat{\mathrm{Var}}\big(X_j \mid X_{\mathrm{pa}(j)}\big),$$
+$$\frac{\mathrm{SSR}_j}{n} = \widehat{\mathrm{Cov}}_{jj} - \widehat{\mathrm{Cov}}_{jP}\widehat{\mathrm{Cov}}_{PP}^{-1}\widehat{\mathrm{Cov}}_{Pj} = \widehat{\mathrm{Var}}\big(X_j \mid X_{\mathrm{pa}(j)}\big),$$
 
 Thus each AR term is approximately the
 node $j$'s variance conditional on its parents.
